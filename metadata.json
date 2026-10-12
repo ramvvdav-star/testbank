@@ -1,0 +1,6 @@
+{
+  "name": "NTA Pulse - JEE & NEET CBT Examination Platform",
+  "description": "Production-grade JEE Main, JEE Advanced, and NEET UG Computer-Based Testing (CBT) platform with realistic examination interface, 7,600+ questions bank, and role-based student and faculty workflows.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
