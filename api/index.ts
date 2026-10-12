@@ -112,6 +112,24 @@ const port = 3000;
 
 app.use(express.json({ limit: '15mb' }));
 
+// Normalize URL prefix for Vercel Serverless Function routing (handles both /api/* and rewritten /* paths)
+app.use((req, _res, next) => {
+  if (!req.url.startsWith('/api') && !req.url.startsWith('/health')) {
+    req.url = '/api' + (req.url.startsWith('/') ? req.url : '/' + req.url);
+  }
+  next();
+});
+
+// Serverless warm-up middleware to guarantee schema & seed readiness on cold starts
+app.use(async (_req, _res, next) => {
+  try {
+    await ensureServerInitialized();
+  } catch (err) {
+    console.warn('Server initialization warning:', err);
+  }
+  next();
+});
+
 // Runtime test definitions and attempts backed by PostgreSQL
 let testsDB: TestDefinition[] = [...SEED_TESTS];
 let attemptsDB: TestAttemptResult[] = [];
