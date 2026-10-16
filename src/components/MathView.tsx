@@ -46,7 +46,7 @@ export const MathView: React.FC<MathViewProps> = ({ content, className = '', blo
 
   return (
     <div
-      className={`math-rendered ${className} ${block ? 'my-2' : 'inline'}`}
+      className={`math-rendered max-w-full overflow-x-auto overflow-y-hidden ${className} ${block ? 'my-2 block' : 'inline'}`}
       dangerouslySetInnerHTML={{ __html: renderedHtml }}
     />
   );

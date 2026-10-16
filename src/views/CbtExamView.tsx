@@ -23,7 +23,8 @@ import {
   Keyboard, 
   Check, 
   X, 
-  ShieldAlert 
+  ShieldAlert,
+  LayoutDashboard
 } from 'lucide-react';
 import { SubjectName, QuestionReport } from '../types/exam';
 
@@ -53,6 +54,7 @@ export const CbtExamView: React.FC = () => {
   } = useExam();
 
   const [showSubmitModal, setShowSubmitModal] = useState<boolean>(false);
+  const [showMobilePalette, setShowMobilePalette] = useState<boolean>(false);
   const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
   const [paletteFilter, setPaletteFilter] = useState<'SECTION' | 'ALL'>('SECTION');
   const [showSolutionInPractice, setShowSolutionInPractice] = useState<boolean>(false);
@@ -308,115 +310,108 @@ export const CbtExamView: React.FC = () => {
   return (
     <div className="min-h-screen lg:h-screen lg:overflow-hidden bg-slate-100 dark:bg-slate-950 flex flex-col font-sans select-none text-slate-800 dark:text-slate-100">
       {/* ================= 1. OFFICIAL CBT HEADER (PART 7) ================= */}
-      <header className="bg-slate-900 text-white px-4 py-2 border-b-2 border-indigo-600 shadow-md flex items-center justify-between sticky top-0 z-30 shrink-0 gap-3">
-        {/* Left: Exam, Subject, Candidate & Roll Number */}
-        <div className="flex items-center gap-3 min-w-0">
-          <div className="w-9 h-9 rounded-lg bg-indigo-600 flex flex-col items-center justify-center font-black text-white text-[10px] leading-none shrink-0">
-            <span>NTA</span>
-            <span className="text-[8px] font-mono text-indigo-200">CBT</span>
-          </div>
-          <div className="min-w-0">
-            <div className="flex items-center gap-2 flex-wrap">
-              <h1 className="text-xs sm:text-sm font-extrabold tracking-tight text-white truncate">
-                {activeTest.title}
-              </h1>
-              <span className="px-2 py-0.5 rounded bg-indigo-950 border border-indigo-700 text-indigo-200 font-mono text-[10px] font-bold">
-                {activeTest.activeAttemptSet || 'Set A'}
-              </span>
-              {examMode === 'PRACTICE' && (
-                <span className="px-2 py-0.5 rounded-full text-[10px] font-bold bg-amber-500 text-slate-950 uppercase tracking-wider">
-                  Practice Mode
+      <header className="bg-slate-900 text-white px-3 sm:px-4 py-2 border-b-2 border-indigo-600 shadow-md sticky top-0 z-30 shrink-0">
+        <div className="flex items-center justify-between gap-2">
+          {/* Left: Exam Logo & Title */}
+          <div className="flex items-center gap-2 sm:gap-3 min-w-0">
+            <div className="w-8 h-8 sm:w-9 sm:h-9 rounded-lg bg-indigo-600 flex flex-col items-center justify-center font-black text-white text-[9px] sm:text-[10px] leading-none shrink-0">
+              <span>NTA</span>
+              <span className="text-[7px] sm:text-[8px] font-mono text-indigo-200">CBT</span>
+            </div>
+            <div className="min-w-0">
+              <div className="flex items-center gap-1.5 sm:gap-2">
+                <h1 className="text-xs sm:text-sm font-extrabold tracking-tight text-white truncate max-w-[120px] xs:max-w-[180px] sm:max-w-[280px] md:max-w-none">
+                  {activeTest.title}
+                </h1>
+                <span className="px-1.5 sm:px-2 py-0.5 rounded bg-indigo-950 border border-indigo-700 text-indigo-200 font-mono text-[9px] sm:text-[10px] font-bold shrink-0">
+                  {activeTest.activeAttemptSet || 'Set A'}
                 </span>
-              )}
+                {examMode === 'PRACTICE' && (
+                  <span className="hidden sm:inline px-2 py-0.5 rounded-full text-[10px] font-bold bg-amber-500 text-slate-950 uppercase tracking-wider shrink-0">
+                    Practice
+                  </span>
+                )}
+              </div>
+              <div className="flex flex-wrap items-center gap-x-2 text-[9px] sm:text-[10px] text-slate-300 mt-0.5">
+                <span className="truncate">
+                  ID: <strong className="font-mono text-amber-300">{candidateRollNo}</strong>
+                </span>
+                <span className="text-slate-500 hidden sm:inline">•</span>
+                <span className="hidden sm:inline">
+                  Candidate: <strong className="text-white">{candidateName}</strong>
+                </span>
+                <span className="text-slate-500 hidden md:inline">•</span>
+                <span className="hidden md:inline">
+                  Subject: <strong className="text-indigo-300">{currentQ.subject}</strong> ({currentSectionLabel})
+                </span>
+              </div>
             </div>
-            <div className="flex flex-wrap items-center gap-x-2.5 gap-y-0.5 text-[10px] text-slate-300 mt-0.5">
-              <span>
-                Candidate: <strong className="text-white">{candidateName}</strong>
-              </span>
-              <span className="text-slate-500">•</span>
-              <span className="font-mono text-amber-300 font-bold">
-                Roll / ID: {candidateRollNo}
-              </span>
-              <span className="text-slate-500 hidden sm:inline">•</span>
-              <span className="font-mono hidden sm:inline">
-                Exam: <strong className="text-white">{activeTest.examType.replace('_', ' ')}</strong>
-              </span>
-              <span className="text-slate-500 hidden md:inline">•</span>
-              <span className="hidden md:inline">
-                Subject: <strong className="text-indigo-300">{currentQ.subject}</strong> ({currentSectionLabel})
-              </span>
+          </div>
+
+          {/* Center: Authoritative Countdown Timer */}
+          <div className="flex flex-col items-center justify-center shrink-0">
+            <div className="text-[8px] sm:text-[9px] uppercase font-bold tracking-wider text-slate-400">
+              Time Left
+            </div>
+            <div
+              className={`px-2 sm:px-3 py-0.5 sm:py-1 rounded-lg font-mono text-xs sm:text-base font-black tracking-wider flex items-center gap-1 sm:gap-2 border ${
+                isTimeCritical
+                  ? 'bg-rose-950 text-rose-300 border-rose-500 animate-pulse'
+                  : isTimeLow
+                  ? 'bg-amber-950 text-amber-300 border-amber-500'
+                  : 'bg-slate-800 text-emerald-400 border-slate-700'
+              }`}
+            >
+              <Clock className="w-3.5 h-3.5 sm:w-4 sm:h-4 shrink-0" />
+              <span>{timeFormatted}</span>
             </div>
           </div>
-        </div>
 
-        {/* Center: Authoritative Countdown Timer */}
-        <div className="flex flex-col items-center justify-center shrink-0">
-          <div className="text-[9px] uppercase font-bold tracking-wider text-slate-400">
-            Remaining Time
-          </div>
-          <div
-            className={`px-3.5 py-1 rounded-lg font-mono text-sm sm:text-base font-black tracking-wider flex items-center gap-2 border ${
-              isTimeCritical
-                ? 'bg-rose-950 text-rose-300 border-rose-500 animate-pulse'
-                : isTimeLow
-                ? 'bg-amber-950 text-amber-300 border-amber-500'
-                : 'bg-slate-800 text-emerald-400 border-slate-700'
-            }`}
-          >
-            <Clock className="w-4 h-4 shrink-0" />
-            <span>{timeFormatted}</span>
-          </div>
-        </div>
-
-        {/* Right: Quick Tools, Connection & Actions */}
-        <div className="flex items-center gap-2.5 shrink-0">
-          <div className="hidden xl:flex items-center gap-2 text-xs">
-            {isOnline ? (
-              <span
-                className="flex items-center gap-1 text-emerald-400 font-medium text-[11px]"
-                title="Network connection stable"
-              >
-                <Wifi className="w-3.5 h-3.5" /> {lastSavedText}
+          {/* Right: Palette Button (Mobile), Tools & Submit */}
+          <div className="flex items-center gap-1.5 sm:gap-2.5 shrink-0">
+            {/* Mobile Question Palette Drawer Trigger Button */}
+            <button
+              onClick={() => setShowMobilePalette(true)}
+              className="lg:hidden px-2 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 text-[11px] font-bold flex items-center gap-1 min-h-[36px] cursor-pointer"
+              title="Open Question Palette"
+            >
+              <LayoutDashboard className="w-3.5 h-3.5 text-indigo-400" />
+              <span className="font-mono text-emerald-400">
+                {paletteSummary.answered}/{paletteSummary.total}
               </span>
-            ) : (
-              <span
-                className="flex items-center gap-1 text-rose-400 font-bold text-[11px] animate-pulse"
-                title="Network disconnected - offline backup active"
-              >
-                <WifiOff className="w-3.5 h-3.5" /> Offline Sync
-              </span>
-            )}
+            </button>
+
+            <button
+              onClick={() => setShowShortcutsModal(true)}
+              className="hidden sm:flex p-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-300 hover:text-white transition-colors cursor-pointer min-h-[36px] min-w-[36px] items-center justify-center"
+              title="Keyboard shortcuts (?)"
+            >
+              <Keyboard className="w-4 h-4" />
+            </button>
+
+            <button
+              onClick={toggleFullscreen}
+              className="hidden sm:flex p-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-300 hover:text-white transition-colors cursor-pointer min-h-[36px] min-w-[36px] items-center justify-center"
+              title={isFullscreen ? 'Exit Fullscreen' : 'Enter Fullscreen'}
+            >
+              {isFullscreen ? <Minimize2 className="w-4 h-4" /> : <Maximize2 className="w-4 h-4" />}
+            </button>
+
+            <button
+              onClick={() => setShowSubmitModal(true)}
+              className="px-2.5 sm:px-4 py-1.5 bg-indigo-600 hover:bg-indigo-700 text-white font-extrabold text-xs uppercase tracking-wider rounded-lg shadow-xs transition-colors flex items-center gap-1 cursor-pointer min-h-[36px]"
+            >
+              <Send className="w-3.5 h-3.5" />
+              <span>Submit</span>
+            </button>
           </div>
-
-          <button
-            onClick={() => setShowShortcutsModal(true)}
-            className="p-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-300 hover:text-white transition-colors cursor-pointer"
-            title="Keyboard shortcuts (?)"
-          >
-            <Keyboard className="w-4 h-4" />
-          </button>
-
-          <button
-            onClick={toggleFullscreen}
-            className="p-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-300 hover:text-white transition-colors cursor-pointer"
-            title={isFullscreen ? 'Exit Fullscreen' : 'Enter Fullscreen'}
-          >
-            {isFullscreen ? <Minimize2 className="w-4 h-4" /> : <Maximize2 className="w-4 h-4" />}
-          </button>
-
-          <button
-            onClick={() => setShowSubmitModal(true)}
-            className="px-4 py-1.5 bg-indigo-600 hover:bg-indigo-700 text-white font-extrabold text-xs uppercase tracking-wider rounded-lg shadow-xs transition-colors flex items-center gap-1.5 cursor-pointer"
-          >
-            <Send className="w-3.5 h-3.5" /> Submit
-          </button>
         </div>
       </header>
 
       {/* ================= 2. SUBJECT & SECTION TABS BAR ================= */}
-      <div className="bg-white dark:bg-slate-900 border-b border-slate-300 dark:border-slate-800 px-4 py-1.5 flex flex-wrap items-center justify-between gap-2 shadow-xs">
-        <div className="flex items-center gap-2 overflow-x-auto">
-          <span className="text-[11px] font-bold uppercase text-slate-500 mr-1 hidden sm:inline">
+      <div className="bg-white dark:bg-slate-900 border-b border-slate-300 dark:border-slate-800 px-3 sm:px-4 py-1.5 flex items-center justify-between gap-2 shadow-xs overflow-x-auto">
+        <div className="flex items-center gap-2 overflow-x-auto shrink-0 py-0.5">
+          <span className="text-[11px] font-bold uppercase text-slate-500 mr-1 hidden sm:inline shrink-0">
             Subjects:
           </span>
           {testSubjects.map((subj) => {
@@ -426,7 +421,7 @@ export const CbtExamView: React.FC = () => {
               <button
                 key={subj}
                 onClick={() => handleSubjectTabClick(subj)}
-                className={`px-3 py-1.5 rounded-lg text-xs font-bold transition-all flex items-center gap-2 cursor-pointer ${
+                className={`px-3 py-1.5 rounded-lg text-xs font-bold transition-all flex items-center gap-2 cursor-pointer shrink-0 ${
                   isActive
                     ? 'bg-indigo-600 text-white shadow-xs'
                     : 'bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-700'
@@ -448,7 +443,7 @@ export const CbtExamView: React.FC = () => {
 
           {/* Section A / Section B Sub-Tabs when multiple sections exist per subject */}
           {subjectSubSections.length > 1 && (
-            <div className="flex items-center gap-1.5 pl-2 ml-1 border-l border-slate-300 dark:border-slate-700">
+            <div className="flex items-center gap-1.5 pl-2 ml-1 border-l border-slate-300 dark:border-slate-700 shrink-0">
               {subjectSubSections.map((sec) => {
                 const isSecActive = currentSectionLabel.startsWith(sec.label.split(' ')[0] + ' ' + sec.label.split(' ')[1]);
                 return (
@@ -456,7 +451,7 @@ export const CbtExamView: React.FC = () => {
                     key={sec.label}
                     type="button"
                     onClick={() => setCurrentQuestionIdx(sec.firstIdx)}
-                    className={`px-2.5 py-1 rounded-md text-[11px] font-bold transition-all cursor-pointer ${
+                    className={`px-2.5 py-1 rounded-md text-[11px] font-bold transition-all cursor-pointer shrink-0 ${
                       isSecActive
                         ? 'bg-slate-900 dark:bg-slate-100 text-white dark:text-slate-950'
                         : 'bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400 hover:bg-slate-200'
@@ -715,77 +710,96 @@ export const CbtExamView: React.FC = () => {
           </div>
 
           {/* ================= 4. BOTTOM ACTION CONTROLS (OFFICIAL NTA CBT WORKFLOW) ================= */}
-          <div className="p-4 border-t border-slate-300 dark:border-slate-800 bg-slate-50 dark:bg-slate-950 flex items-center justify-between gap-2 flex-wrap">
-            <div className="flex items-center gap-2 flex-wrap">
-              <button
-                onClick={saveAndNext}
-                className="px-5 py-2.5 bg-emerald-600 hover:bg-emerald-700 text-white rounded-xl text-xs font-extrabold transition-all shadow-xs flex items-center gap-1.5 cursor-pointer"
-              >
-                Save &amp; Next <ChevronRight className="w-4 h-4" />
-              </button>
+          <div className="p-3 sm:p-4 border-t border-slate-300 dark:border-slate-800 bg-slate-50 dark:bg-slate-950 shrink-0">
+            <div className="flex flex-col gap-2.5">
+              {/* Row 1: Primary Answer Submission & Review Buttons */}
+              <div className="grid grid-cols-2 sm:flex sm:items-center gap-2">
+                <button
+                  onClick={saveAndNext}
+                  className="col-span-2 sm:col-span-1 px-4 sm:px-5 py-2.5 bg-emerald-600 hover:bg-emerald-700 text-white rounded-xl text-xs font-extrabold transition-all shadow-xs flex items-center justify-center gap-1.5 cursor-pointer min-h-[44px]"
+                >
+                  <span>Save &amp; Next</span> <ChevronRight className="w-4 h-4" />
+                </button>
 
-              <button
-                onClick={() => saveAndMarkForReview(currentQ.id)}
-                className="px-3.5 py-2.5 bg-purple-600 hover:bg-purple-700 text-white rounded-xl text-xs font-bold transition-all shadow-xs flex items-center gap-1.5 cursor-pointer"
-                title="Save current answer and mark for review (Will be evaluated)"
-              >
-                <span className="w-2 h-2 rounded-full bg-emerald-300"></span>
-                Save &amp; Mark for Review
-              </button>
+                <button
+                  onClick={() => saveAndMarkForReview(currentQ.id)}
+                  className="px-3 sm:px-3.5 py-2.5 bg-purple-600 hover:bg-purple-700 text-white rounded-xl text-xs font-bold transition-all shadow-xs flex items-center justify-center gap-1.5 cursor-pointer min-h-[44px]"
+                  title="Save current answer and mark for review (Will be evaluated)"
+                >
+                  <span className="w-2 h-2 rounded-full bg-emerald-300 shrink-0"></span>
+                  <span className="truncate">Save &amp; Review</span>
+                </button>
 
-              <button
-                onClick={() => clearResponse(currentQ.id)}
-                className="px-3.5 py-2.5 bg-white dark:bg-slate-800 hover:bg-slate-100 text-slate-700 dark:text-slate-300 border border-slate-300 dark:border-slate-700 rounded-xl text-xs font-bold transition-all shadow-xs flex items-center gap-1.5 cursor-pointer"
-              >
-                <RotateCcw className="w-3.5 h-3.5" />
-                Clear Response
-              </button>
+                <button
+                  onClick={() => markForReview(currentQ.id)}
+                  className="px-3 sm:px-3.5 py-2.5 bg-indigo-50 dark:bg-indigo-950/60 hover:bg-indigo-100 text-indigo-700 dark:text-indigo-300 border border-indigo-300 dark:border-indigo-700 rounded-xl text-xs font-bold transition-all shadow-xs flex items-center justify-center gap-1.5 cursor-pointer min-h-[44px]"
+                  title="Mark for review without saving answer"
+                >
+                  <Bookmark className="w-3.5 h-3.5 shrink-0" />
+                  <span className="truncate">Review &amp; Next</span>
+                </button>
 
-              <button
-                onClick={() => markForReview(currentQ.id)}
-                className="px-3.5 py-2.5 bg-indigo-50 dark:bg-indigo-950/60 hover:bg-indigo-100 text-indigo-700 dark:text-indigo-300 border border-indigo-300 dark:border-indigo-700 rounded-xl text-xs font-bold transition-all shadow-xs flex items-center gap-1.5 cursor-pointer"
-              >
-                <Bookmark className="w-3.5 h-3.5" />
-                Mark for Review &amp; Next
-              </button>
-            </div>
+                <button
+                  onClick={() => clearResponse(currentQ.id)}
+                  className="px-3 py-2.5 bg-white dark:bg-slate-800 hover:bg-slate-100 text-slate-700 dark:text-slate-300 border border-slate-300 dark:border-slate-700 rounded-xl text-xs font-bold transition-all shadow-xs flex items-center justify-center gap-1.5 cursor-pointer min-h-[44px]"
+                  title="Clear selected option"
+                >
+                  <RotateCcw className="w-3.5 h-3.5 shrink-0" />
+                  <span>Clear</span>
+                </button>
 
-            <div className="flex items-center gap-2">
-              <button
-                onClick={() => {
-                  if (currentQuestionIdx > 0) setCurrentQuestionIdx(currentQuestionIdx - 1);
-                }}
-                disabled={currentQuestionIdx === 0}
-                className={`px-3.5 py-2.5 rounded-xl text-xs font-bold border transition-all flex items-center gap-1 cursor-pointer ${
-                  currentQuestionIdx === 0
-                    ? 'bg-slate-100 dark:bg-slate-900 text-slate-400 border-slate-200 dark:border-slate-800 cursor-not-allowed'
-                    : 'bg-white dark:bg-slate-800 text-slate-700 dark:text-slate-300 border-slate-300 dark:border-slate-700 hover:bg-slate-100 shadow-xs'
-                }`}
-              >
-                <ChevronLeft className="w-4 h-4" /> &lt;&lt; Back
-              </button>
+                {/* Mobile-only Palette Shortcut Button */}
+                <button
+                  onClick={() => setShowMobilePalette(true)}
+                  className="sm:hidden col-span-2 px-3 py-2.5 bg-slate-800 hover:bg-slate-700 text-indigo-300 border border-slate-700 rounded-xl text-xs font-bold transition-all flex items-center justify-center gap-2 cursor-pointer min-h-[44px]"
+                >
+                  <LayoutDashboard className="w-4 h-4 text-indigo-400" />
+                  <span>Question Palette ({paletteSummary.answered}/{paletteSummary.total})</span>
+                </button>
+              </div>
 
-              <button
-                onClick={() => {
-                  if (currentQuestionIdx < activeTest.questions.length - 1) {
-                    setCurrentQuestionIdx(currentQuestionIdx + 1);
-                  }
-                }}
-                disabled={currentQuestionIdx === activeTest.questions.length - 1}
-                className={`px-3.5 py-2.5 rounded-xl text-xs font-bold border transition-all flex items-center gap-1 cursor-pointer ${
-                  currentQuestionIdx === activeTest.questions.length - 1
-                    ? 'bg-slate-100 dark:bg-slate-900 text-slate-400 border-slate-200 dark:border-slate-800 cursor-not-allowed'
-                    : 'bg-white dark:bg-slate-800 text-slate-700 dark:text-slate-300 border-slate-300 dark:border-slate-700 hover:bg-slate-100 shadow-xs'
-                }`}
-              >
-                Next &gt;&gt; <ChevronRight className="w-4 h-4" />
-              </button>
+              {/* Row 2: Back & Next Navigation Buttons */}
+              <div className="flex items-center justify-between gap-2 pt-1 border-t border-slate-200 dark:border-slate-800/80">
+                <button
+                  onClick={() => {
+                    if (currentQuestionIdx > 0) setCurrentQuestionIdx(currentQuestionIdx - 1);
+                  }}
+                  disabled={currentQuestionIdx === 0}
+                  className={`flex-1 sm:flex-initial px-4 py-2.5 rounded-xl text-xs font-bold border transition-all flex items-center justify-center gap-1.5 cursor-pointer min-h-[44px] ${
+                    currentQuestionIdx === 0
+                      ? 'bg-slate-100 dark:bg-slate-900 text-slate-400 border-slate-200 dark:border-slate-800 cursor-not-allowed'
+                      : 'bg-white dark:bg-slate-800 text-slate-700 dark:text-slate-300 border-slate-300 dark:border-slate-700 hover:bg-slate-100 shadow-xs'
+                  }`}
+                >
+                  <ChevronLeft className="w-4 h-4" /> <span>Previous</span>
+                </button>
+
+                <div className="text-xs font-mono font-bold text-slate-500 text-center">
+                  Q {currentQuestionIdx + 1} / {activeTest.questions.length}
+                </div>
+
+                <button
+                  onClick={() => {
+                    if (currentQuestionIdx < activeTest.questions.length - 1) {
+                      setCurrentQuestionIdx(currentQuestionIdx + 1);
+                    }
+                  }}
+                  disabled={currentQuestionIdx === activeTest.questions.length - 1}
+                  className={`flex-1 sm:flex-initial px-4 py-2.5 rounded-xl text-xs font-bold border transition-all flex items-center justify-center gap-1.5 cursor-pointer min-h-[44px] ${
+                    currentQuestionIdx === activeTest.questions.length - 1
+                      ? 'bg-slate-100 dark:bg-slate-900 text-slate-400 border-slate-200 dark:border-slate-800 cursor-not-allowed'
+                      : 'bg-white dark:bg-slate-800 text-slate-700 dark:text-slate-300 border-slate-300 dark:border-slate-700 hover:bg-slate-100 shadow-xs'
+                  }`}
+                >
+                  <span>Next</span> <ChevronRight className="w-4 h-4" />
+                </button>
+              </div>
             </div>
           </div>
         </div>
 
-        {/* ================= 5. RIGHT SIDEBAR: QUESTION PALETTE ================= */}
-        <div className="w-full lg:w-80 bg-slate-50 dark:bg-slate-950 flex flex-col border-l border-slate-300 dark:border-slate-800 overflow-hidden shrink-0">
+        {/* ================= 5. RIGHT SIDEBAR: QUESTION PALETTE (DESKTOP) ================= */}
+        <div className="hidden lg:flex w-80 bg-slate-50 dark:bg-slate-950 flex-col border-l border-slate-300 dark:border-slate-800 overflow-hidden shrink-0">
           {/* Candidate Profile Widget */}
           <div className="p-3.5 border-b border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 flex items-center gap-3 shrink-0">
             <div className="w-10 h-10 rounded-xl bg-gradient-to-tr from-indigo-700 to-sky-600 text-white font-black text-sm flex items-center justify-center shadow-xs">
@@ -922,6 +936,159 @@ export const CbtExamView: React.FC = () => {
           </div>
         </div>
       </div>
+
+      {/* ================= MOBILE QUESTION PALETTE DRAWER / MODAL ================= */}
+      {showMobilePalette && (
+        <div className="fixed inset-0 z-50 bg-slate-950/80 backdrop-blur-xs lg:hidden flex flex-col justify-end">
+          <div className="bg-white dark:bg-slate-900 rounded-t-3xl border-t border-slate-300 dark:border-slate-800 max-h-[85vh] flex flex-col shadow-2xl animate-in slide-in-from-bottom duration-200">
+            {/* Drawer Header */}
+            <div className="p-4 border-b border-slate-200 dark:border-slate-800 flex items-center justify-between">
+              <div className="flex items-center gap-2">
+                <LayoutDashboard className="w-4 h-4 text-indigo-600" />
+                <h3 className="font-bold text-sm text-slate-900 dark:text-white">
+                  Question Palette
+                </h3>
+                <span className="text-xs font-mono font-bold text-emerald-600">
+                  {paletteSummary.answered}/{paletteSummary.total} Answered
+                </span>
+              </div>
+              <button
+                onClick={() => setShowMobilePalette(false)}
+                className="p-1.5 rounded-lg bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:bg-slate-200 cursor-pointer"
+                aria-label="Close palette"
+              >
+                <X className="w-5 h-5" />
+              </button>
+            </div>
+
+            {/* Palette Legend */}
+            <div className="p-3 bg-slate-50 dark:bg-slate-950 border-b border-slate-200 dark:border-slate-800 text-[11px] space-y-1.5 shrink-0">
+              <div className="grid grid-cols-2 gap-2">
+                <div className="flex items-center gap-2">
+                  <span className="w-5 h-5 rounded-md bg-emerald-600 text-white font-bold font-mono text-[10px] flex items-center justify-center shrink-0">
+                    {paletteSummary.answered}
+                  </span>
+                  <span className="text-slate-700 dark:text-slate-300 font-medium">Answered</span>
+                </div>
+                <div className="flex items-center gap-2">
+                  <span className="w-5 h-5 rounded-md bg-red-600 text-white font-bold font-mono text-[10px] flex items-center justify-center shrink-0">
+                    {paletteSummary.notAnswered}
+                  </span>
+                  <span className="text-slate-700 dark:text-slate-300 font-medium">Not Answered</span>
+                </div>
+                <div className="flex items-center gap-2">
+                  <span className="w-5 h-5 rounded-md bg-slate-200 dark:bg-slate-700 text-slate-700 dark:text-slate-200 font-bold font-mono text-[10px] flex items-center justify-center shrink-0 border border-slate-300 dark:border-slate-600">
+                    {paletteSummary.notVisited}
+                  </span>
+                  <span className="text-slate-700 dark:text-slate-300 font-medium">Not Visited</span>
+                </div>
+                <div className="flex items-center gap-2">
+                  <span className="w-5 h-5 rounded-full bg-purple-600 text-white font-bold font-mono text-[10px] flex items-center justify-center shrink-0">
+                    {paletteSummary.marked}
+                  </span>
+                  <span className="text-slate-700 dark:text-slate-300 font-medium">Marked Review</span>
+                </div>
+              </div>
+            </div>
+
+            {/* Filter and Grid */}
+            <div className="p-4 space-y-3 flex-1 overflow-y-auto">
+              <div className="flex items-center justify-between px-3 py-1.5 bg-slate-100 dark:bg-slate-800 rounded-lg text-xs">
+                <span className="font-bold text-slate-700 dark:text-slate-300">{currentQ.subject}</span>
+                <div className="flex gap-1">
+                  <button
+                    type="button"
+                    onClick={() => setPaletteFilter('SECTION')}
+                    className={`px-2 py-0.5 rounded text-[11px] font-bold transition-all cursor-pointer ${
+                      paletteFilter === 'SECTION'
+                        ? 'bg-indigo-600 text-white shadow-xs'
+                        : 'bg-white dark:bg-slate-700 text-slate-600 dark:text-slate-300'
+                    }`}
+                  >
+                    Section
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => setPaletteFilter('ALL')}
+                    className={`px-2 py-0.5 rounded text-[11px] font-bold transition-all cursor-pointer ${
+                      paletteFilter === 'ALL'
+                        ? 'bg-indigo-600 text-white shadow-xs'
+                        : 'bg-white dark:bg-slate-700 text-slate-600 dark:text-slate-300'
+                    }`}
+                  >
+                    All ({activeTest.questions.length})
+                  </button>
+                </div>
+              </div>
+
+              {/* Grid of Questions */}
+              <div className="grid grid-cols-5 gap-2 pt-1 pb-4">
+                {displayedPaletteQuestions.map(({ q, idx }) => {
+                  const r = responses[q.id];
+                  const isCurrent = idx === currentQuestionIdx;
+                  const status = r ? r.status : 'NOT_VISITED';
+
+                  let bgClass = 'bg-slate-200 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border-slate-300 dark:border-slate-700';
+                  let isCircle = false;
+                  let hasGreenDot = false;
+
+                  if (status === 'ANSWERED') {
+                    bgClass = 'bg-emerald-600 text-white border-emerald-700';
+                  } else if (status === 'NOT_ANSWERED') {
+                    bgClass = 'bg-red-600 text-white border-red-700';
+                  } else if (status === 'MARKED_FOR_REVIEW') {
+                    bgClass = 'bg-purple-600 text-white border-purple-700';
+                    isCircle = true;
+                  } else if (status === 'ANSWERED_AND_MARKED') {
+                    bgClass = 'bg-purple-600 text-white border-purple-700';
+                    isCircle = true;
+                    hasGreenDot = true;
+                  }
+
+                  return (
+                    <button
+                      key={q.id}
+                      onClick={() => {
+                        setCurrentQuestionIdx(idx);
+                        setShowMobilePalette(false);
+                      }}
+                      className={`relative h-11 flex items-center justify-center font-mono font-bold text-xs border transition-all cursor-pointer ${
+                        isCircle ? 'rounded-full' : 'rounded-lg'
+                      } ${bgClass} ${
+                        isCurrent ? 'ring-3 ring-indigo-500 ring-offset-1 scale-105 z-10' : 'active:scale-95'
+                      }`}
+                    >
+                      {idx + 1}
+                      {hasGreenDot && (
+                        <span className="absolute bottom-0.5 right-0.5 w-2 h-2 rounded-full bg-emerald-400 border border-white"></span>
+                      )}
+                    </button>
+                  );
+                })}
+              </div>
+            </div>
+
+            {/* Mobile Drawer Footer Actions */}
+            <div className="p-3 border-t border-slate-200 dark:border-slate-800 flex gap-2">
+              <button
+                onClick={() => setShowMobilePalette(false)}
+                className="flex-1 py-2.5 bg-slate-200 dark:bg-slate-800 text-slate-800 dark:text-slate-200 font-bold text-xs rounded-xl min-h-[44px] cursor-pointer"
+              >
+                Back to Question
+              </button>
+              <button
+                onClick={() => {
+                  setShowMobilePalette(false);
+                  setShowSubmitModal(true);
+                }}
+                className="flex-1 py-2.5 bg-indigo-600 hover:bg-indigo-700 text-white font-bold text-xs rounded-xl min-h-[44px] cursor-pointer"
+              >
+                Submit Paper
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
 
       {/* ================= 6. SUBMISSION CONFIRMATION MODAL ================= */}
       {showSubmitModal && (

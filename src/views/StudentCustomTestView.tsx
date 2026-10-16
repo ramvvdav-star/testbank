@@ -435,12 +435,14 @@ export const StudentCustomTestView: React.FC = () => {
             <button
               onClick={handleGenerateCustomTest}
               disabled={isGenerating}
-              className="px-8 py-4 bg-emerald-600 hover:bg-emerald-700 text-white font-extrabold text-xs uppercase tracking-wider rounded-xl shadow-md shadow-emerald-200 transition-all flex items-center gap-2 cursor-pointer"
+              className="w-full sm:w-auto justify-center px-8 py-4 bg-emerald-600 hover:bg-emerald-700 text-white font-extrabold text-xs uppercase tracking-wider rounded-xl shadow-md shadow-emerald-200 transition-all flex items-center gap-2 cursor-pointer min-h-[44px]"
             >
-              {isGenerating
-                ? 'Validating Enrollment & Assembling Paper...'
-                : `Generate & Start My ${studentCourseType === 'NEET' ? 'NEET' : 'JEE'} Test`}{' '}
-              <ArrowRight className="w-4 h-4" />
+              <span>
+                {isGenerating
+                  ? 'Validating Enrollment & Assembling Paper...'
+                  : `Generate & Start My ${studentCourseType === 'NEET' ? 'NEET' : 'JEE'} Test`}
+              </span>
+              <ArrowRight className="w-4 h-4 shrink-0" />
             </button>
           </div>
         </div>

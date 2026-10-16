@@ -112,20 +112,29 @@ const port = 3000;
 
 app.use(express.json({ limit: '15mb' }));
 
-// Normalize URL prefix for Vercel Serverless Function routing (handles both /api/* and rewritten /* paths)
+// Normalize URL prefix ONLY when running as a Vercel Serverless Function
 app.use((req, _res, next) => {
-  if (!req.url.startsWith('/api') && !req.url.startsWith('/health')) {
+  if (
+    process.env.VERCEL &&
+    !req.url.startsWith('/api') &&
+    !req.url.startsWith('/health') &&
+    !req.url.startsWith('/src') &&
+    !req.url.startsWith('/@') &&
+    !req.url.startsWith('/node_modules')
+  ) {
     req.url = '/api' + (req.url.startsWith('/') ? req.url : '/' + req.url);
   }
   next();
 });
 
-// Serverless warm-up middleware to guarantee schema & seed readiness on cold starts
-app.use(async (_req, _res, next) => {
-  try {
-    await ensureServerInitialized();
-  } catch (err) {
-    console.warn('Server initialization warning:', err);
+// Warm-up middleware scoped strictly to API requests to prevent blocking Vite assets
+app.use(async (req, _res, next) => {
+  if (req.url.startsWith('/api')) {
+    try {
+      await ensureServerInitialized();
+    } catch (err) {
+      console.warn('Server initialization warning:', err);
+    }
   }
   next();
 });

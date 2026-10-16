@@ -226,8 +226,8 @@ export const TestDetailsView: React.FC = () => {
                 {activeTest.sections.length} Sections Configured
               </span>
             </div>
-            <div className="overflow-x-auto">
-              <table className="w-full text-left border-collapse text-xs">
+            <div className="overflow-x-auto -mx-2 px-2 sm:mx-0 sm:px-0">
+              <table className="w-full min-w-[540px] text-left border-collapse text-xs">
                 <thead>
                   <tr className="border-b border-slate-200 dark:border-slate-800 text-slate-500 uppercase">
                     <th className="py-2.5 pr-4">Subject</th>
@@ -302,19 +302,19 @@ export const TestDetailsView: React.FC = () => {
         </div>
 
         {/* Action Buttons */}
-        <div className="flex flex-wrap items-center justify-end gap-3 pt-2">
+        <div className="flex flex-col sm:flex-row items-stretch sm:items-center sm:justify-end gap-3 pt-2">
           <button
             onClick={() => startCbtExam(activeTest, 'PRACTICE', selectedAttemptNum)}
-            className="px-6 py-4 bg-white dark:bg-slate-900 hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-800 dark:text-slate-200 border border-slate-300 dark:border-slate-700 font-bold text-sm rounded-2xl transition-all flex items-center gap-2 cursor-pointer"
+            className="w-full sm:w-auto justify-center px-6 py-3.5 sm:py-4 bg-white dark:bg-slate-900 hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-800 dark:text-slate-200 border border-slate-300 dark:border-slate-700 font-bold text-xs sm:text-sm rounded-2xl transition-all flex items-center gap-2 cursor-pointer min-h-[44px]"
           >
-            <RefreshCw className="w-4 h-4 text-amber-600" />
-            Start Practice Mode ({activeTest.activeAttemptSet || 'Set A'})
+            <RefreshCw className="w-4 h-4 text-amber-600 shrink-0" />
+            <span>Start Practice Mode ({activeTest.activeAttemptSet || 'Set A'})</span>
           </button>
           <button
             onClick={() => setCurrentView('instructions')}
-            className="px-8 py-4 bg-indigo-600 hover:bg-indigo-700 text-white font-bold text-sm rounded-2xl shadow-md shadow-indigo-200 dark:shadow-none transition-all flex items-center gap-2 cursor-pointer"
+            className="w-full sm:w-auto justify-center px-8 py-3.5 sm:py-4 bg-indigo-600 hover:bg-indigo-700 text-white font-bold text-xs sm:text-sm rounded-2xl shadow-md shadow-indigo-200 dark:shadow-none transition-all flex items-center gap-2 cursor-pointer min-h-[44px]"
           >
-            Read Official CBT Instructions ({activeTest.activeAttemptSet || 'Set A'}) <ArrowRight className="w-4 h-4" />
+            <span>Read Official CBT Instructions ({activeTest.activeAttemptSet || 'Set A'})</span> <ArrowRight className="w-4 h-4 shrink-0" />
           </button>
         </div>
       </div>

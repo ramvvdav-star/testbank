@@ -250,22 +250,22 @@ export const StudentDashboardView: React.FC = () => {
               </div>
             </div>
 
-            <div className="flex flex-wrap items-center gap-2.5">
+            <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-2.5 w-full lg:w-auto">
               <button
                 onClick={() => setCurrentView('tests')}
-                className="px-4 py-2.5 bg-indigo-600 hover:bg-indigo-500 text-white font-bold text-xs rounded-xl transition-colors cursor-pointer"
+                className="w-full sm:w-auto justify-center px-4 py-2.5 bg-indigo-600 hover:bg-indigo-500 text-white font-bold text-xs rounded-xl transition-colors cursor-pointer min-h-[44px] flex items-center"
               >
                 {coursePrefix} Mock Tests ({tests.length})
               </button>
               <button
                 onClick={() => setCurrentView('practice-engine')}
-                className="px-4 py-2.5 bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs rounded-xl transition-colors cursor-pointer flex items-center gap-1.5"
+                className="w-full sm:w-auto justify-center px-4 py-2.5 bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs rounded-xl transition-colors cursor-pointer flex items-center gap-1.5 min-h-[44px]"
               >
                 <Zap className="w-3.5 h-3.5" /> {coursePrefix} Practice
               </button>
               <button
                 onClick={() => setCurrentView('student-custom-test')}
-                className="px-4 py-2.5 bg-slate-800 hover:bg-slate-700 text-white border border-slate-700 font-bold text-xs rounded-xl transition-colors cursor-pointer flex items-center gap-1.5"
+                className="w-full sm:w-auto justify-center px-4 py-2.5 bg-slate-800 hover:bg-slate-700 text-white border border-slate-700 font-bold text-xs rounded-xl transition-colors cursor-pointer flex items-center gap-1.5 min-h-[44px]"
               >
                 <Sliders className="w-3.5 h-3.5" /> Custom {coursePrefix} Test
               </button>
@@ -586,33 +586,35 @@ export const StudentDashboardView: React.FC = () => {
                       </button>
                     </div>
                   ) : (
-                    <div className="pt-4">
-                      <div className="grid grid-cols-6 gap-3 items-end h-44 pt-6 px-2 border-b border-slate-200 dark:border-slate-800">
-                        {recentScores.map((item, idx) => (
-                          <div
-                            key={idx}
-                            className="flex flex-col items-center gap-2 h-full justify-end group"
-                          >
-                            <div className="text-[10px] font-mono font-bold text-slate-700 dark:text-slate-300">
-                              {item.score}/{item.maxScore}
-                            </div>
+                    <div className="pt-4 overflow-x-auto -mx-2 px-2 sm:mx-0 sm:px-0">
+                      <div className="min-w-[340px]">
+                        <div className="grid grid-cols-6 gap-2 sm:gap-3 items-end h-44 pt-6 px-2 border-b border-slate-200 dark:border-slate-800">
+                          {recentScores.map((item, idx) => (
                             <div
-                              className="w-full max-w-[42px] bg-gradient-to-t from-indigo-600 to-indigo-400 rounded-t-xl transition-all group-hover:from-emerald-600 group-hover:to-emerald-400"
-                              style={{ height: `${Math.max(12, item.percentage)}%` }}
-                              title={`${item.title}: ${item.score}/${item.maxScore} (${item.accuracy}% Accuracy)`}
-                            />
-                          </div>
-                        ))}
-                      </div>
-                      <div className="grid grid-cols-6 gap-3 pt-2 text-center">
-                        {recentScores.map((item, idx) => (
-                          <div key={idx} className="truncate">
-                            <div className="text-[11px] font-bold text-slate-700 dark:text-slate-300 font-mono">
-                              {item.label}
+                              key={idx}
+                              className="flex flex-col items-center gap-2 h-full justify-end group"
+                            >
+                              <div className="text-[10px] font-mono font-bold text-slate-700 dark:text-slate-300">
+                                {item.score}/{item.maxScore}
+                              </div>
+                              <div
+                                className="w-full max-w-[42px] bg-gradient-to-t from-indigo-600 to-indigo-400 rounded-t-xl transition-all group-hover:from-emerald-600 group-hover:to-emerald-400"
+                                style={{ height: `${Math.max(12, item.percentage)}%` }}
+                                title={`${item.title}: ${item.score}/${item.maxScore} (${item.accuracy}% Accuracy)`}
+                              />
                             </div>
-                            <div className="text-[10px] text-slate-400 truncate">{item.title}</div>
-                          </div>
-                        ))}
+                          ))}
+                        </div>
+                        <div className="grid grid-cols-6 gap-2 sm:gap-3 pt-2 text-center">
+                          {recentScores.map((item, idx) => (
+                            <div key={idx} className="truncate">
+                              <div className="text-[11px] font-bold text-slate-700 dark:text-slate-300 font-mono">
+                                {item.label}
+                              </div>
+                              <div className="text-[10px] text-slate-400 truncate">{item.title}</div>
+                            </div>
+                          ))}
+                        </div>
                       </div>
                     </div>
                   )}

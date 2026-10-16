@@ -186,17 +186,17 @@ export const SystemCheckView: React.FC = () => {
           </div>
 
           {/* Confirmation & Launch */}
-          <div className="flex items-center justify-between pt-4 border-t border-slate-200">
-            <div className="flex items-center gap-2">
+          <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3 pt-4 border-t border-slate-200">
+            <div className="flex items-center justify-center sm:justify-start gap-2">
               <span className="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse"></span>
               <span className="text-xs font-bold text-emerald-700">System Ready for Exam</span>
             </div>
 
             <button
               onClick={handleStartExam}
-              className="px-8 py-4 bg-indigo-600 hover:bg-indigo-700 text-white font-extrabold text-xs uppercase tracking-wider rounded-xl shadow-lg shadow-indigo-200 transition-all flex items-center gap-2"
+              className="w-full sm:w-auto justify-center px-8 py-3.5 sm:py-4 bg-indigo-600 hover:bg-indigo-700 text-white font-extrabold text-xs uppercase tracking-wider rounded-xl shadow-lg shadow-indigo-200 transition-all flex items-center gap-2 cursor-pointer min-h-[44px]"
             >
-              Start CBT Examination <ArrowRight className="w-4 h-4" />
+              <span>Start CBT Examination</span> <ArrowRight className="w-4 h-4 shrink-0" />
             </button>
           </div>
         </div>

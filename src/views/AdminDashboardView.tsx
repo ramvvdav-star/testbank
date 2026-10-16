@@ -587,20 +587,20 @@ NEET,Botany,Genetics,Mendel Laws,EASY,MCQ,Phenotypic ratio in monohybrid cross i
             </p>
           </div>
 
-          <div className="flex items-center gap-3">
+          <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-2.5 w-full md:w-auto">
             <button
               onClick={() => setActiveAdminTab('rls-security')}
-              className="px-4 py-2.5 bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs rounded-xl shadow-xs transition-colors flex items-center gap-2 cursor-pointer"
+              className="w-full sm:w-auto justify-center px-4 py-2.5 bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs rounded-xl shadow-xs transition-colors flex items-center gap-2 cursor-pointer min-h-[44px]"
             >
-              <Lock className="w-4 h-4" />
-              Course Security &amp; RLS Audit
+              <Lock className="w-4 h-4 shrink-0" />
+              <span>Course Security &amp; RLS Audit</span>
             </button>
             <button
               onClick={() => setShowAddModal(true)}
-              className="px-4 py-2.5 bg-indigo-600 hover:bg-indigo-700 text-white font-bold text-xs rounded-xl shadow-xs transition-colors flex items-center gap-2 cursor-pointer"
+              className="w-full sm:w-auto justify-center px-4 py-2.5 bg-indigo-600 hover:bg-indigo-700 text-white font-bold text-xs rounded-xl shadow-xs transition-colors flex items-center gap-2 cursor-pointer min-h-[44px]"
             >
-              <Plus className="w-4 h-4" />
-              Create Question (Controlled Workflow)
+              <Plus className="w-4 h-4 shrink-0" />
+              <span>Create Question (Controlled Workflow)</span>
             </button>
           </div>
         </div>

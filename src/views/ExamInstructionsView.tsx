@@ -181,21 +181,21 @@ export const ExamInstructionsView: React.FC = () => {
           </div>
 
           {/* Button bar */}
-          <div className="flex items-center justify-between pt-4 border-t border-slate-200">
-            <span className="text-xs text-slate-500">
+          <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3 pt-4 border-t border-slate-200">
+            <span className="text-xs text-slate-500 text-center sm:text-left">
               Step 1 of 2: Instruction Verification
             </span>
 
             <button
               onClick={() => setCurrentView('system-check')}
               disabled={!hasAgreed}
-              className={`px-8 py-3.5 rounded-xl font-bold text-xs uppercase tracking-wider flex items-center gap-2 transition-all ${
+              className={`w-full sm:w-auto justify-center px-8 py-3.5 rounded-xl font-bold text-xs uppercase tracking-wider flex items-center gap-2 transition-all min-h-[44px] ${
                 hasAgreed
                   ? 'bg-indigo-600 hover:bg-indigo-700 text-white shadow-md shadow-indigo-200 cursor-pointer'
                   : 'bg-slate-200 text-slate-400 cursor-not-allowed'
               }`}
             >
-              Proceed to System Diagnostic <ArrowRight className="w-4 h-4" />
+              <span>Proceed to System Diagnostic</span> <ArrowRight className="w-4 h-4 shrink-0" />
             </button>
           </div>
         </div>

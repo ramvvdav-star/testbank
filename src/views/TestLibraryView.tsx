@@ -294,15 +294,15 @@ export const TestLibraryView: React.FC = () => {
             />
           </div>
 
-          <div className="flex items-center gap-3 w-full md:w-auto flex-wrap sm:flex-nowrap">
-            <div className="flex items-center gap-2 w-full sm:w-auto">
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-2.5 w-full md:w-auto">
+            <div className="flex items-center gap-2 w-full">
               <span className="text-xs font-bold text-slate-500 uppercase tracking-wider shrink-0">
                 Subject:
               </span>
               <select
                 value={selectedSubject}
                 onChange={(e) => setSelectedSubject(e.target.value as any)}
-                className="py-2 px-3 bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded-xl text-xs font-semibold text-slate-700 dark:text-slate-200 focus:outline-none"
+                className="w-full py-2 px-3 bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded-xl text-xs font-semibold text-slate-700 dark:text-slate-200 focus:outline-none"
               >
                 {allowedSubjects.map((s) => (
                   <option key={s} value={s}>
@@ -312,14 +312,14 @@ export const TestLibraryView: React.FC = () => {
               </select>
             </div>
 
-            <div className="flex items-center gap-2 w-full sm:w-auto">
+            <div className="flex items-center gap-2 w-full">
               <span className="text-xs font-bold text-slate-500 uppercase tracking-wider shrink-0">
                 Difficulty:
               </span>
               <select
                 value={selectedDifficulty}
                 onChange={(e) => setSelectedDifficulty(e.target.value)}
-                className="py-2 px-3 bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded-xl text-xs font-semibold text-slate-700 dark:text-slate-200 focus:outline-none"
+                className="w-full py-2 px-3 bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded-xl text-xs font-semibold text-slate-700 dark:text-slate-200 focus:outline-none"
               >
                 <option value="ALL">All Difficulties</option>
                 <option value="EASY">Easy (Foundation)</option>
@@ -328,7 +328,7 @@ export const TestLibraryView: React.FC = () => {
               </select>
             </div>
 
-            <div className="flex items-center gap-2 w-full sm:w-auto">
+            <div className="flex items-center gap-2 w-full">
               <span className="text-xs font-bold text-slate-500 uppercase tracking-wider shrink-0">
                 Show:
               </span>
@@ -338,7 +338,7 @@ export const TestLibraryView: React.FC = () => {
                   setPageSize(Number(e.target.value));
                   setCurrentPage(1);
                 }}
-                className="py-2 px-3 bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded-xl text-xs font-semibold text-slate-700 dark:text-slate-200 focus:outline-none"
+                className="w-full py-2 px-3 bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded-xl text-xs font-semibold text-slate-700 dark:text-slate-200 focus:outline-none"
               >
                 <option value={12}>12 per page</option>
                 <option value={24}>24 per page</option>

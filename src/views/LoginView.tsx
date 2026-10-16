@@ -212,28 +212,28 @@ export const LoginView: React.FC = () => {
       </div>
 
       {/* Top Institutional Security Bar */}
-      <header className="relative z-10 border-b border-slate-800/80 bg-slate-950/80 backdrop-blur-md px-6 py-4">
-        <div className="max-w-7xl mx-auto flex items-center justify-between">
-          <div className="flex items-center gap-3.5">
-            <div className="w-11 h-11 rounded-xl bg-indigo-600 flex items-center justify-center text-white font-black shadow-lg shadow-indigo-950 border border-indigo-400/30">
-              <ShieldCheck className="w-6 h-6 text-white" />
+      <header className="relative z-10 border-b border-slate-800/80 bg-slate-950/80 backdrop-blur-md px-3.5 sm:px-6 py-3 sm:py-4">
+        <div className="max-w-7xl mx-auto flex items-center justify-between gap-2">
+          <div className="flex items-center gap-2.5 sm:gap-3.5 min-w-0">
+            <div className="w-9 h-9 sm:w-11 sm:h-11 rounded-xl bg-indigo-600 flex items-center justify-center text-white font-black shadow-lg shadow-indigo-950 border border-indigo-400/30 shrink-0">
+              <ShieldCheck className="w-5 h-5 sm:w-6 sm:h-6 text-white" />
             </div>
-            <div>
-              <div className="flex items-center gap-2.5">
-                <span className="font-black text-xl tracking-tight text-white">
+            <div className="min-w-0">
+              <div className="flex items-center gap-2 flex-wrap">
+                <span className="font-black text-lg sm:text-xl tracking-tight text-white truncate">
                   NTA <span className="text-indigo-400">PULSE</span>
                 </span>
-                <span className="text-xs text-slate-400 font-mono">
+                <span className="text-xs text-slate-400 font-mono hidden sm:inline">
                   · National Competitive Examination Portal
                 </span>
               </div>
-              <p className="text-xs text-slate-400">
+              <p className="text-[11px] sm:text-xs text-slate-400 hidden xs:block truncate">
                 Secure Examination &amp; Assessment Platform · JEE Main · JEE Advanced · NEET UG
               </p>
             </div>
           </div>
 
-          <div className="flex items-center gap-4">
+          <div className="flex items-center gap-2 sm:gap-4 shrink-0">
             <div className="hidden sm:flex items-center gap-2 text-xs text-emerald-400 font-mono">
               <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
               <span>256-Bit Encrypted Session Gate</span>
@@ -241,8 +241,9 @@ export const LoginView: React.FC = () => {
             <button
               type="button"
               onClick={toggleTheme}
-              className="p-2 rounded-lg border border-slate-800 bg-slate-900 text-slate-300 hover:text-white hover:border-slate-700 transition-colors cursor-pointer"
+              className="p-2 sm:p-2.5 rounded-lg border border-slate-800 bg-slate-900 text-slate-300 hover:text-white hover:border-slate-700 transition-colors cursor-pointer min-h-[40px] min-w-[40px] flex items-center justify-center"
               title="Toggle appearance"
+              aria-label="Toggle theme"
             >
               {theme === 'dark' ? (
                 <Sun className="w-4 h-4 text-amber-400" />
@@ -553,93 +554,93 @@ export const LoginView: React.FC = () => {
           </div>
 
           {/* Right Column: Role-Selected Examination Login Card */}
-          <div className="lg:col-span-7">
-            <div className="bg-slate-900/90 backdrop-blur-xl border border-slate-800 rounded-3xl shadow-2xl overflow-hidden">
+          <div className="lg:col-span-7 w-full">
+            <div className="bg-slate-900/90 backdrop-blur-xl border border-slate-800 rounded-2xl sm:rounded-3xl shadow-2xl overflow-hidden">
               {/* Role Selection Tabs (Section 8) */}
-              <div className="p-4 sm:p-6 bg-slate-950/60 border-b border-slate-800">
-                <div className="text-xs font-bold uppercase tracking-wider text-slate-400 mb-3">
+              <div className="p-3.5 sm:p-6 bg-slate-950/60 border-b border-slate-800">
+                <div className="text-[11px] sm:text-xs font-bold uppercase tracking-wider text-slate-400 mb-2.5 sm:mb-3">
                   Select Portal Account Type
                 </div>
-                <div className="grid grid-cols-3 gap-3">
+                <div className="grid grid-cols-3 gap-2 sm:gap-3">
                   <button
                     type="button"
                     onClick={() => handleRoleSwitch('STUDENT')}
-                    className={`p-3.5 rounded-2xl border text-left transition-all cursor-pointer ${
+                    className={`p-2.5 sm:p-3.5 rounded-xl sm:rounded-2xl border text-left transition-all cursor-pointer min-h-[48px] ${
                       selectedRole === 'STUDENT'
                         ? 'bg-indigo-600/15 border-indigo-500 text-white shadow-lg shadow-indigo-950/50'
                         : 'bg-slate-900/80 border-slate-800 text-slate-400 hover:text-slate-200 hover:border-slate-700'
                     }`}
                   >
-                    <div className="flex items-center justify-between mb-1.5">
+                    <div className="flex items-center justify-between mb-1">
                       <GraduationCap
-                        className={`w-5 h-5 ${
+                        className={`w-4 h-4 sm:w-5 sm:h-5 ${
                           selectedRole === 'STUDENT' ? 'text-indigo-400' : 'text-slate-500'
                         }`}
                       />
                       {selectedRole === 'STUDENT' && (
-                        <span className="w-2 h-2 rounded-full bg-indigo-400" />
+                        <span className="w-1.5 h-1.5 sm:w-2 sm:h-2 rounded-full bg-indigo-400" />
                       )}
                     </div>
-                    <div className="font-extrabold text-sm">Student</div>
-                    <div className="text-[11px] text-slate-400 mt-0.5 line-clamp-1">
-                      Login using your Student ID
+                    <div className="font-extrabold text-xs sm:text-sm">Student</div>
+                    <div className="hidden sm:block text-[11px] text-slate-400 mt-0.5 line-clamp-1">
+                      Login with Student ID
                     </div>
                   </button>
 
                   <button
                     type="button"
                     onClick={() => handleRoleSwitch('TEACHER')}
-                    className={`p-3.5 rounded-2xl border text-left transition-all cursor-pointer ${
+                    className={`p-2.5 sm:p-3.5 rounded-xl sm:rounded-2xl border text-left transition-all cursor-pointer min-h-[48px] ${
                       selectedRole === 'TEACHER'
                         ? 'bg-emerald-600/15 border-emerald-500 text-white shadow-lg shadow-emerald-950/50'
                         : 'bg-slate-900/80 border-slate-800 text-slate-400 hover:text-slate-200 hover:border-slate-700'
                     }`}
                   >
-                    <div className="flex items-center justify-between mb-1.5">
+                    <div className="flex items-center justify-between mb-1">
                       <UserCheck
-                        className={`w-5 h-5 ${
+                        className={`w-4 h-4 sm:w-5 sm:h-5 ${
                           selectedRole === 'TEACHER' ? 'text-emerald-400' : 'text-slate-500'
                         }`}
                       />
                       {selectedRole === 'TEACHER' && (
-                        <span className="w-2 h-2 rounded-full bg-emerald-400" />
+                        <span className="w-1.5 h-1.5 sm:w-2 sm:h-2 rounded-full bg-emerald-400" />
                       )}
                     </div>
-                    <div className="font-extrabold text-sm">Teacher</div>
-                    <div className="text-[11px] text-slate-400 mt-0.5 line-clamp-1">
-                      Login using your Teacher account
+                    <div className="font-extrabold text-xs sm:text-sm">Teacher</div>
+                    <div className="hidden sm:block text-[11px] text-slate-400 mt-0.5 line-clamp-1">
+                      Faculty account
                     </div>
                   </button>
 
                   <button
                     type="button"
                     onClick={() => handleRoleSwitch('ADMIN')}
-                    className={`p-3.5 rounded-2xl border text-left transition-all cursor-pointer ${
+                    className={`p-2.5 sm:p-3.5 rounded-xl sm:rounded-2xl border text-left transition-all cursor-pointer min-h-[48px] ${
                       selectedRole === 'ADMIN'
                         ? 'bg-purple-600/15 border-purple-500 text-white shadow-lg shadow-purple-950/50'
                         : 'bg-slate-900/80 border-slate-800 text-slate-400 hover:text-slate-200 hover:border-slate-700'
                     }`}
                   >
-                    <div className="flex items-center justify-between mb-1.5">
+                    <div className="flex items-center justify-between mb-1">
                       <ShieldCheck
-                        className={`w-5 h-5 ${
+                        className={`w-4 h-4 sm:w-5 sm:h-5 ${
                           selectedRole === 'ADMIN' ? 'text-purple-400' : 'text-slate-500'
                         }`}
                       />
                       {selectedRole === 'ADMIN' && (
-                        <span className="w-2 h-2 rounded-full bg-purple-400" />
+                        <span className="w-1.5 h-1.5 sm:w-2 sm:h-2 rounded-full bg-purple-400" />
                       )}
                     </div>
-                    <div className="font-extrabold text-sm">Admin</div>
-                    <div className="text-[11px] text-slate-400 mt-0.5 line-clamp-1">
-                      Administrator Login
+                    <div className="font-extrabold text-xs sm:text-sm">Admin</div>
+                    <div className="hidden sm:block text-[11px] text-slate-400 mt-0.5 line-clamp-1">
+                      Controller Login
                     </div>
                   </button>
                 </div>
               </div>
 
               {/* Form Body */}
-              <div className="p-6 sm:p-8">
+              <div className="p-4 sm:p-8">
                 <div className="mb-6">
                   <h2 className="text-xl font-black text-white">
                     {selectedRole === 'STUDENT' && 'Candidate Examination Sign In'}

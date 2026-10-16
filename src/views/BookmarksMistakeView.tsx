@@ -70,29 +70,29 @@ export const BookmarksMistakeView: React.FC = () => {
             </p>
           </div>
 
-          <div className="flex items-center gap-3">
+          <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-2.5 w-full md:w-auto">
             {activeTab === 'bookmarks' && filteredBookmarks.length > 0 && (
               <button
                 onClick={handlePracticeBookmarks}
-                className="px-5 py-2.5 bg-indigo-600 hover:bg-indigo-700 text-white font-bold text-xs rounded-xl shadow-xs transition-colors flex items-center gap-2 cursor-pointer"
+                className="w-full sm:w-auto justify-center px-5 py-2.5 bg-indigo-600 hover:bg-indigo-700 text-white font-bold text-xs rounded-xl shadow-xs transition-colors flex items-center gap-2 cursor-pointer min-h-[44px]"
               >
-                <Zap className="w-4 h-4" /> Practice Selected Bookmarks ({filteredBookmarks.length})
+                <Zap className="w-4 h-4 shrink-0" /> <span>Practice Selected Bookmarks ({filteredBookmarks.length})</span>
               </button>
             )}
 
             {activeTab === 'mistakes' && mistakeQuestions.length > 0 && (
               <button
                 onClick={() => startMistakePractice()}
-                className="px-5 py-2.5 bg-amber-600 hover:bg-amber-700 text-white font-bold text-xs rounded-xl shadow-xs transition-colors flex items-center gap-2 cursor-pointer"
+                className="w-full sm:w-auto justify-center px-5 py-2.5 bg-amber-600 hover:bg-amber-700 text-white font-bold text-xs rounded-xl shadow-xs transition-colors flex items-center gap-2 cursor-pointer min-h-[44px]"
               >
-                <RotateCcw className="w-4 h-4" /> Practice Mistakes ({mistakeQuestions.length})
+                <RotateCcw className="w-4 h-4 shrink-0" /> <span>Practice Mistakes ({mistakeQuestions.length})</span>
               </button>
             )}
           </div>
         </div>
 
         {/* Tab Switcher */}
-        <div className="flex items-center gap-2 p-1.5 bg-slate-200/70 dark:bg-slate-900 rounded-2xl w-fit">
+        <div className="flex items-center gap-2 p-1.5 bg-slate-200/70 dark:bg-slate-900 rounded-2xl w-full sm:w-fit overflow-x-auto">
           <button
             onClick={() => setActiveTab('bookmarks')}
             className={`px-5 py-2 rounded-xl text-xs font-bold transition-all flex items-center gap-2 cursor-pointer ${

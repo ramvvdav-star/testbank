@@ -216,11 +216,11 @@ export const PracticeEngineView: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen bg-slate-50 dark:bg-slate-950 py-10 px-4 sm:px-6 lg:px-8">
-      <div className="max-w-6xl mx-auto space-y-8">
+    <div className="min-h-screen bg-slate-50 dark:bg-slate-950 py-4 sm:py-10 px-3 sm:px-6 lg:px-8">
+      <div className="max-w-6xl mx-auto space-y-6 sm:space-y-8">
         {/* Header */}
-        <div className="border-b border-slate-200 dark:border-slate-800 pb-6">
-          <div className="flex items-center gap-2">
+        <div className="border-b border-slate-200 dark:border-slate-800 pb-5 sm:pb-6">
+          <div className="flex flex-wrap items-center gap-2">
             <span className="px-2.5 py-0.5 rounded-full text-xs font-bold uppercase tracking-wider bg-amber-100 dark:bg-amber-950/70 text-amber-800 dark:text-amber-300 flex items-center gap-1.5">
               <Zap className="w-3.5 h-3.5 text-amber-600" />
               {courseTitle} Practice Engine
@@ -230,17 +230,17 @@ export const PracticeEngineView: React.FC = () => {
               Subjects: {allowedSubjects.join(', ')}
             </span>
           </div>
-          <h1 className="text-3xl font-black text-slate-900 dark:text-slate-100 tracking-tight mt-1">
+          <h1 className="text-2xl sm:text-3xl font-black text-slate-900 dark:text-slate-100 tracking-tight mt-2">
             {courseTitle} Personalized Practice &amp; Weak-Area Drills
           </h1>
-          <p className="text-sm text-slate-600 dark:text-slate-400 mt-1 max-w-3xl">
+          <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-400 mt-1 max-w-3xl">
             Target your {courseTitle} mistakes, run chapter-wise question sprints across{' '}
             {allowedSubjects.join(', ')}, and turn conceptual weak points into exam strengths.
           </p>
         </div>
 
         {/* Tab Switcher */}
-        <div className="flex items-center gap-2 p-1.5 bg-slate-200/70 dark:bg-slate-900 rounded-2xl overflow-x-auto">
+        <div className="flex items-center gap-2 p-1.5 bg-slate-200/70 dark:bg-slate-900 rounded-2xl overflow-x-auto no-scrollbar">
           <button
             onClick={() => setActiveTab('weak-areas')}
             className={`px-4 py-2.5 rounded-xl text-xs font-bold transition-all shrink-0 flex items-center gap-2 cursor-pointer ${

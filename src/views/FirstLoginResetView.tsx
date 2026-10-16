@@ -55,16 +55,16 @@ export const FirstLoginResetView: React.FC = () => {
       <div className="w-full max-w-lg bg-slate-900 border border-slate-800 rounded-3xl shadow-2xl overflow-hidden">
         {/* Header */}
         <div className="p-6 sm:p-8 bg-slate-950 border-b border-slate-800">
-          <div className="flex items-center justify-between mb-4">
-            <div className="flex items-center gap-3">
-              <div className="w-10 h-10 rounded-xl bg-indigo-600 flex items-center justify-center text-white font-bold">
+          <div className="flex items-center justify-between gap-3 mb-4 flex-wrap">
+            <div className="flex items-center gap-3 min-w-0">
+              <div className="w-10 h-10 rounded-xl bg-indigo-600 flex items-center justify-center text-white font-bold shrink-0">
                 <ShieldCheck className="w-5 h-5" />
               </div>
-              <div>
+              <div className="min-w-0">
                 <div className="text-xs font-mono uppercase tracking-wider text-indigo-400">
                   First-Time Candidate Activation
                 </div>
-                <div className="text-sm font-bold text-white">
+                <div className="text-sm font-bold text-white truncate">
                   {authProfile?.fullName} ·{' '}
                   <span className="font-mono text-sky-400">
                     {authProfile?.studentId || authProfile?.email}
@@ -76,7 +76,7 @@ export const FirstLoginResetView: React.FC = () => {
             <button
               type="button"
               onClick={logout}
-              className="px-3 py-1.5 rounded-lg border border-slate-800 text-xs font-semibold text-slate-400 hover:text-white hover:bg-slate-900 flex items-center gap-1.5 cursor-pointer"
+              className="px-3 py-1.5 rounded-lg border border-slate-800 text-xs font-semibold text-slate-400 hover:text-white hover:bg-slate-900 flex items-center gap-1.5 cursor-pointer shrink-0 min-h-[36px]"
             >
               <LogOut className="w-3.5 h-3.5" />
               <span>Sign Out</span>

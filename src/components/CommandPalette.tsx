@@ -12,6 +12,7 @@ import {
   ShieldCheck,
   Clock,
   Zap,
+  X,
 } from 'lucide-react';
 
 export const CommandPalette: React.FC = () => {
@@ -217,12 +218,12 @@ export const CommandPalette: React.FC = () => {
   if (!isCommandPaletteOpen) return null;
 
   return (
-    <div className="fixed inset-0 z-50 flex items-start justify-center pt-20 px-4 bg-slate-950/70 backdrop-blur-xs">
+    <div className="fixed inset-0 z-50 flex items-start justify-center pt-8 sm:pt-20 px-3 sm:px-4 bg-slate-950/70 backdrop-blur-xs">
       <div
-        className="w-full max-w-2xl bg-white dark:bg-slate-900 rounded-2xl shadow-2xl border border-slate-200 dark:border-slate-800 overflow-hidden flex flex-col max-h-[75vh]"
+        className="w-full max-w-2xl bg-white dark:bg-slate-900 rounded-2xl shadow-2xl border border-slate-200 dark:border-slate-800 overflow-hidden flex flex-col max-h-[85vh] sm:max-h-[75vh]"
         onClick={(e) => e.stopPropagation()}
       >
-        <div className="p-4 border-b border-slate-200 dark:border-slate-800 flex items-center gap-3 bg-slate-50 dark:bg-slate-950">
+        <div className="p-3.5 sm:p-4 border-b border-slate-200 dark:border-slate-800 flex items-center gap-2.5 sm:gap-3 bg-slate-50 dark:bg-slate-950">
           <Search className="w-5 h-5 text-indigo-600 dark:text-indigo-400 shrink-0" />
           <input
             type="text"
@@ -231,13 +232,21 @@ export const CommandPalette: React.FC = () => {
               setQuery(e.target.value);
               setSelectedIndex(0);
             }}
-            placeholder={`Search ${coursePrefix} commands, tests, subjects, or chapters... (Esc to exit)`}
+            placeholder={`Search ${coursePrefix} commands, tests, subjects...`}
             autoFocus
-            className="flex-1 bg-transparent border-none text-sm font-medium text-slate-900 dark:text-slate-100 placeholder-slate-400 focus:outline-none"
+            className="flex-1 bg-transparent border-none text-xs sm:text-sm font-medium text-slate-900 dark:text-slate-100 placeholder-slate-400 focus:outline-none"
           />
           <kbd className="hidden sm:inline px-2 py-0.5 text-[10px] font-mono font-bold text-slate-500 bg-slate-200 dark:bg-slate-800 rounded">
             ESC
           </kbd>
+          <button
+            type="button"
+            onClick={() => setIsCommandPaletteOpen(false)}
+            className="sm:hidden p-1.5 rounded-lg text-slate-500 hover:text-slate-900 dark:hover:text-white min-h-[36px] min-w-[36px] flex items-center justify-center cursor-pointer"
+            aria-label="Close search"
+          >
+            <X className="w-4 h-4" />
+          </button>
         </div>
 
         <div className="flex-1 overflow-y-auto p-2 space-y-1">

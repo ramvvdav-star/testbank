@@ -13,12 +13,12 @@ export const Footer: React.FC = () => {
   const isNeetStudent = authProfile?.role === 'STUDENT' && enrolledCourse === 'NEET';
 
   return (
-    <footer className="bg-slate-900 text-slate-300 pt-12 pb-8 border-t border-slate-800">
+    <footer className="bg-slate-900 text-slate-300 pt-10 pb-8 border-t border-slate-800">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-8 mb-10">
-          <div className="md:col-span-2 space-y-4">
-            <div className="flex items-center gap-2">
-              <div className="w-8 h-8 rounded-lg bg-indigo-600 flex items-center justify-center text-white font-bold">
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-8 mb-8">
+          <div className="md:col-span-2 space-y-3.5">
+            <div className="flex items-center gap-2 flex-wrap">
+              <div className="w-8 h-8 rounded-lg bg-indigo-600 flex items-center justify-center text-white font-bold shrink-0">
                 <CheckCircle2 className="w-5 h-5 text-white" />
               </div>
               <span className="font-black text-xl text-white tracking-tight">
@@ -28,7 +28,7 @@ export const Footer: React.FC = () => {
                 Course-Isolated CBT System
               </span>
             </div>
-            <p className="text-sm text-slate-400 max-w-md leading-relaxed">
+            <p className="text-xs sm:text-sm text-slate-400 max-w-md leading-relaxed">
               Engineered with strict course separation for{' '}
               {isNeetStudent ? 'NEET UG medical' : 'JEE Main, JEE Advanced, and NEET UG'} aspirants.
               Experience genuine computer-based exam ergonomics, authoritative timing, instant evaluation, and actionable analytics.
@@ -43,14 +43,14 @@ export const Footer: React.FC = () => {
           </div>
 
           <div>
-            <h4 className="text-sm font-bold text-white uppercase tracking-wider mb-4">
+            <h4 className="text-xs sm:text-sm font-bold text-white uppercase tracking-wider mb-3">
               {authProfile?.role === 'STUDENT' ? `My ${enrolledCourse} Portal` : 'Course Navigation'}
             </h4>
-            <ul className="space-y-2 text-sm text-slate-400">
+            <ul className="space-y-2 text-xs sm:text-sm text-slate-400">
               <li>
                 <button
                   onClick={() => setCurrentView('student-dashboard')}
-                  className="hover:text-white transition-colors cursor-pointer"
+                  className="hover:text-white transition-colors cursor-pointer py-1 block text-left min-h-[32px] flex items-center"
                 >
                   {isNeetStudent ? 'NEET UG Dashboard' : 'JEE Course Dashboard'}
                 </button>
@@ -58,7 +58,7 @@ export const Footer: React.FC = () => {
               <li>
                 <button
                   onClick={() => setCurrentView('tests')}
-                  className="hover:text-white transition-colors cursor-pointer"
+                  className="hover:text-white transition-colors cursor-pointer py-1 block text-left min-h-[32px] flex items-center"
                 >
                   {isNeetStudent
                     ? 'NEET UG Full Mocks (Phy, Chem, Bot, Zoo)'
@@ -68,7 +68,7 @@ export const Footer: React.FC = () => {
               <li>
                 <button
                   onClick={() => setCurrentView('practice-engine')}
-                  className="hover:text-white transition-colors cursor-pointer"
+                  className="hover:text-white transition-colors cursor-pointer py-1 block text-left min-h-[32px] flex items-center"
                 >
                   {isNeetStudent ? 'NEET Topic Practice Engine' : 'JEE Topic Practice Engine'}
                 </button>
@@ -76,7 +76,7 @@ export const Footer: React.FC = () => {
               <li>
                 <button
                   onClick={() => setCurrentView('student-custom-test')}
-                  className="hover:text-white transition-colors cursor-pointer"
+                  className="hover:text-white transition-colors cursor-pointer py-1 block text-left min-h-[32px] flex items-center"
                 >
                   Course Custom Sprint Builder
                 </button>
@@ -85,15 +85,15 @@ export const Footer: React.FC = () => {
           </div>
 
           <div>
-            <h4 className="text-sm font-bold text-white uppercase tracking-wider mb-4">
+            <h4 className="text-xs sm:text-sm font-bold text-white uppercase tracking-wider mb-3">
               {isAdmin || isTeacher ? 'Staff Controls' : 'Student Resources'}
             </h4>
             {isAdmin ? (
-              <ul className="space-y-2 text-sm text-slate-400">
+              <ul className="space-y-2 text-xs sm:text-sm text-slate-400">
                 <li>
                   <button
                     onClick={() => setCurrentView('admin-dashboard')}
-                    className="hover:text-white transition-colors flex items-center gap-1.5 cursor-pointer"
+                    className="hover:text-white transition-colors flex items-center gap-1.5 cursor-pointer py-1 min-h-[32px]"
                   >
                     <ShieldCheck className="w-3.5 h-3.5 text-purple-400" />
                     Admin Command Center
@@ -102,18 +102,18 @@ export const Footer: React.FC = () => {
                 <li>
                   <button
                     onClick={() => setCurrentView('admin-questions')}
-                    className="hover:text-white transition-colors cursor-pointer"
+                    className="hover:text-white transition-colors cursor-pointer py-1 block text-left min-h-[32px] flex items-center"
                   >
                     Controlled Question Bank
                   </button>
                 </li>
               </ul>
             ) : isTeacher ? (
-              <ul className="space-y-2 text-sm text-slate-400">
+              <ul className="space-y-2 text-xs sm:text-sm text-slate-400">
                 <li>
                   <button
                     onClick={() => setCurrentView('teacher-dashboard')}
-                    className="hover:text-white transition-colors flex items-center gap-1.5 cursor-pointer"
+                    className="hover:text-white transition-colors flex items-center gap-1.5 cursor-pointer py-1 min-h-[32px]"
                   >
                     <ShieldCheck className="w-3.5 h-3.5 text-indigo-400" />
                     Faculty Command Portal
@@ -121,11 +121,11 @@ export const Footer: React.FC = () => {
                 </li>
               </ul>
             ) : (
-              <ul className="space-y-2 text-sm text-slate-400">
+              <ul className="space-y-2 text-xs sm:text-sm text-slate-400">
                 <li>
                   <button
                     onClick={() => setCurrentView('bookmarks-mistakes')}
-                    className="hover:text-white transition-colors cursor-pointer"
+                    className="hover:text-white transition-colors cursor-pointer py-1 block text-left min-h-[32px] flex items-center"
                   >
                     Bookmarks &amp; Mistake Vault
                   </button>
@@ -133,7 +133,7 @@ export const Footer: React.FC = () => {
                 <li>
                   <button
                     onClick={() => setCurrentView('result')}
-                    className="hover:text-white transition-colors cursor-pointer"
+                    className="hover:text-white transition-colors cursor-pointer py-1 block text-left min-h-[32px] flex items-center"
                   >
                     My Course Results &amp; Analytics
                   </button>
@@ -143,11 +143,11 @@ export const Footer: React.FC = () => {
           </div>
         </div>
 
-        <div className="pt-8 border-t border-slate-800 flex flex-col sm:flex-row items-center justify-between text-xs text-slate-500 gap-4">
+        <div className="pt-6 border-t border-slate-800 flex flex-col sm:flex-row items-center justify-between text-xs text-slate-500 gap-3 text-center sm:text-left">
           <p>
             © {new Date().getFullYear()} NTA Pulse. All mock papers, formulas, and CBT analytics are strictly isolated by course enrollment.
           </p>
-          <span className="inline-flex items-center gap-1 text-emerald-400 font-medium">
+          <span className="inline-flex items-center gap-1.5 text-emerald-400 font-medium shrink-0">
             <span className="w-2 h-2 rounded-full bg-emerald-400"></span>
             Course-Enforced Testing Engine Active
           </span>

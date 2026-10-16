@@ -375,7 +375,7 @@ export const AdminRbacControlPanel: React.FC = () => {
 
       {/* ================= SUBTAB: COURSE ENROLLMENTS MANAGEMENT (SECTION 17) ================= */}
       {subTab === 'enrollments' && (
-        <div className="bg-white rounded-3xl border border-slate-200 p-6 space-y-5 shadow-xs">
+        <div className="bg-white rounded-3xl border border-slate-200 p-4 sm:p-6 space-y-5 shadow-xs">
           <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-slate-100 pb-4">
             <div>
               <h3 className="text-lg font-black text-slate-900">

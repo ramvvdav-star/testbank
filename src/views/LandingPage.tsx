@@ -35,23 +35,25 @@ export const LandingPage: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen bg-slate-50 text-slate-900">
+    <div className="min-h-screen w-full max-w-full overflow-x-hidden bg-slate-50 text-slate-900">
       {/* Hero Section */}
-      <section className="relative overflow-hidden bg-gradient-to-b from-indigo-900 via-slate-900 to-slate-950 text-white pt-20 pb-28 px-4 sm:px-6 lg:px-8">
-        <div className="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[350px] bg-indigo-500/20 blur-[120px] rounded-full pointer-events-none"></div>
-        <div className="absolute top-1/3 right-10 w-[300px] h-[250px] bg-sky-500/15 blur-[100px] rounded-full pointer-events-none"></div>
+      <section className="relative overflow-hidden w-full bg-gradient-to-b from-indigo-900 via-slate-900 to-slate-950 text-white pt-14 pb-20 sm:pt-20 sm:pb-28 px-4 sm:px-6 lg:px-8">
+        <div className="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[350px] sm:w-[600px] h-[250px] sm:h-[350px] bg-indigo-500/20 blur-[90px] sm:blur-[120px] rounded-full pointer-events-none"></div>
+        <div className="absolute top-1/3 right-0 sm:right-10 w-[200px] sm:w-[300px] h-[180px] sm:h-[250px] bg-sky-500/15 blur-[80px] sm:blur-[100px] rounded-full pointer-events-none"></div>
 
-        <div className="relative max-w-5xl mx-auto text-center space-y-8">
-          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-indigo-500/10 border border-indigo-400/30 text-indigo-300 text-xs font-semibold uppercase tracking-wider backdrop-blur-md">
-            <ShieldCheck className="w-3.5 h-3.5 text-indigo-400" />
-            {isNeetStudent
-              ? 'Enrolled Course: NEET UG Medical Examination Portal'
-              : isJeeStudent
-              ? `Enrolled Course: ${enrolledCourses.join(' + ')} Engineering Portal`
-              : 'Computer-Based Testing Engine for 2026 Aspirants'}
+        <div className="relative max-w-5xl mx-auto text-center space-y-6 sm:space-y-8">
+          <div className="inline-flex items-center gap-2 px-3 sm:px-4 py-1.5 rounded-full bg-indigo-500/10 border border-indigo-400/30 text-indigo-300 text-[11px] sm:text-xs font-semibold uppercase tracking-wider backdrop-blur-md max-w-full">
+            <ShieldCheck className="w-3.5 h-3.5 text-indigo-400 shrink-0" />
+            <span className="truncate">
+              {isNeetStudent
+                ? 'Enrolled Course: NEET UG Medical Examination Portal'
+                : isJeeStudent
+                ? `Enrolled Course: ${enrolledCourses.join(' + ')} Engineering Portal`
+                : 'Computer-Based Testing Engine for 2026 Aspirants'}
+            </span>
           </div>
 
-          <h1 className="text-4xl sm:text-6xl lg:text-7xl font-black tracking-tight leading-[1.1] text-white">
+          <h1 className="text-3xl xs:text-4xl sm:text-6xl lg:text-7xl font-black tracking-tight leading-[1.15] sm:leading-[1.1] text-white">
             Practice Like It&apos;s the <br />
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-sky-400 via-indigo-300 to-pink-400">
               Real {isNeetStudent ? 'NEET UG' : isJeeStudent ? 'JEE' : ''} Exam.

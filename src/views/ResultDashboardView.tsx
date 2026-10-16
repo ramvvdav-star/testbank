@@ -91,24 +91,24 @@ export const ResultDashboardView: React.FC = () => {
     <div className="min-h-screen bg-slate-50 py-10 px-4 sm:px-6 lg:px-8 print:p-0 print:bg-white">
       <div className="max-w-7xl mx-auto space-y-8">
         {/* Navigation & Print Actions */}
-        <div className="flex items-center justify-between print:hidden">
+        <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3 print:hidden">
           <button
             onClick={() => setCurrentView('tests')}
-            className="inline-flex items-center gap-1.5 text-xs font-semibold text-slate-600 hover:text-slate-900 transition-colors"
+            className="inline-flex items-center gap-1.5 text-xs font-semibold text-slate-600 hover:text-slate-900 transition-colors py-1 cursor-pointer"
           >
             <ArrowLeft className="w-4 h-4" /> Back to Test Library
           </button>
 
-          <div className="flex items-center gap-3">
+          <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-2.5">
             <button
               onClick={handlePrint}
-              className="px-3.5 py-2 bg-white border border-slate-300 hover:bg-slate-50 rounded-xl text-xs font-bold text-slate-700 shadow-2xs flex items-center gap-1.5"
+              className="w-full sm:w-auto justify-center px-4 py-2.5 bg-white border border-slate-300 hover:bg-slate-50 rounded-xl text-xs font-bold text-slate-700 shadow-2xs flex items-center gap-1.5 cursor-pointer min-h-[40px]"
             >
               <Printer className="w-4 h-4 text-slate-500" /> Print / Save Scorecard PDF
             </button>
             <button
               onClick={() => setCurrentView('student-custom-test')}
-              className="px-4 py-2 bg-indigo-600 hover:bg-indigo-700 text-white rounded-xl text-xs font-bold shadow-xs transition-colors flex items-center gap-1.5"
+              className="w-full sm:w-auto justify-center px-4 py-2.5 bg-indigo-600 hover:bg-indigo-700 text-white rounded-xl text-xs font-bold shadow-xs transition-colors flex items-center gap-1.5 cursor-pointer min-h-[40px]"
             >
               <Zap className="w-4 h-4 text-amber-300" /> Retake Weak Chapters
             </button>
@@ -116,7 +116,7 @@ export const ResultDashboardView: React.FC = () => {
         </div>
 
         {/* ================= 1. SCORE BANNER & SIMULATED PERCENTILE ================= */}
-        <div className="bg-gradient-to-r from-slate-900 via-indigo-950 to-slate-900 text-white rounded-3xl p-8 sm:p-10 shadow-xl border border-slate-800 space-y-6">
+        <div className="bg-gradient-to-r from-slate-900 via-indigo-950 to-slate-900 text-white rounded-3xl p-5 sm:p-10 shadow-xl border border-slate-800 space-y-6">
           <div className="flex flex-col md:flex-row md:items-center justify-between gap-6">
             <div className="space-y-2">
               <div className="flex items-center gap-2">
@@ -125,7 +125,7 @@ export const ResultDashboardView: React.FC = () => {
                 </span>
                 <span className="text-xs text-slate-400 font-mono">Attempt #{res.id.slice(-6)}</span>
               </div>
-              <h1 className="text-3xl sm:text-4xl font-black tracking-tight text-white">
+              <h1 className="text-2xl sm:text-4xl font-black tracking-tight text-white">
                 {res.testTitle}
               </h1>
               <p className="text-xs sm:text-sm text-slate-300">
@@ -134,7 +134,7 @@ export const ResultDashboardView: React.FC = () => {
             </div>
 
             {/* Big Score Box */}
-            <div className="p-6 bg-white/10 backdrop-blur-md rounded-2xl border border-white/20 text-center min-w-[220px]">
+            <div className="p-5 sm:p-6 bg-white/10 backdrop-blur-md rounded-2xl border border-white/20 text-center w-full sm:w-auto min-w-0 sm:min-w-[220px]">
               <div className="text-[11px] uppercase tracking-wider font-extrabold text-indigo-200">
                 Total Score
               </div>
